@@ -9,6 +9,8 @@
   "author": "Mitch Gavan",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^4.13.5"
+    "bluebird": "^3.5.1",
+    "mongoose": "^4.13.5",
+    "serverless-offline": "^3.16.0"
   }
 }
