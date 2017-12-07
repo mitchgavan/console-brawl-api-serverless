@@ -4,6 +4,7 @@
   "description": "",
   "main": "handler.js",
   "scripts": {
+    "dev": "serverless offline start --skipCacheInvalidation",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mitch Gavan",

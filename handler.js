@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose')
 const bluebird = require('bluebird')
-const GameModel = require('./model/Game')
+const Game = require('./model/Game')
 
 mongoose.Promise = bluebird
 
@@ -15,11 +15,11 @@ const errorResponse = (statusCode, message) => ({
 });
 
 module.exports.getGame = (event, context, callback) => {
-  const db = mongoose.connect(MONGO_STRING).connection
-  const id = event.pathParameters.id;
+  const DB = mongoose.connect(MONGO_STRING).connection
+  const id = event.pathParameters.id
 
-  db.once('open', () => {
-    GameModel.findOne({ id: id })
+  DB.once('open', () => {
+    Game.findOne({ id: id })
       .then((game) => {
         callback(null, { 
           statusCode: 200,
@@ -30,22 +30,26 @@ module.exports.getGame = (event, context, callback) => {
         callback(null, errorResponse(400, 'No game with that ID found'))
       })
       .finally(() => {
-        db.close()
+        DB.close()
       })
   })
 }
 
-module.exports.hello = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
+module.exports.createGame = (event, context, callback) => {
+  const DB = mongoose.connect(MONGO_STRING).connection
+  const data = JSON.parse(event.body)
 
-  callback(null, response);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
-};
+  DB.once('open', () => {
+    Game.create(data)
+      .then((game) => {
+        callback(null, {
+          statusCode: 200,
+          body: JSON.stringify({ name: game.name })
+        })
+      })
+      .catch((err) => {
+        callback(null, errorResponse(err.statusCode, err.message))
+      })
+      .finally(() => DB.close())
+  })
+}

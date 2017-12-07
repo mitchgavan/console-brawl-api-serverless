@@ -40,8 +40,12 @@ functions:
           path: game/{id}
           method: get
 
-  hello:
-    handler: handler.hello
+  post:
+    handler: handler.createGame
+    events:
+      - http:
+          path: game
+          method: post
 
 plugins:
   - serverless-offline
