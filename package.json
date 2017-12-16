@@ -13,9 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.1",
-    "mongoose": "^4.13.5"
-  },
-  "devDependencies": {
+    "mongoose": "^4.13.5",
     "serverless-offline": "^3.16.0"
   }
 }
