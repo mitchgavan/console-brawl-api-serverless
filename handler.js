@@ -53,3 +53,5 @@ module.exports.createGame = (event, context, callback) => {
       .finally(() => DB.close())
   })
 }
+
+// TODO: add update handler
