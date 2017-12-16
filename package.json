@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "serverless offline start --stage dev --skipCacheInvalidation",
     "deploy": "serverless deploy --stage prod -v",
+    "deployV2": "serverless deploy --stage prod2 -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mitch Gavan",
